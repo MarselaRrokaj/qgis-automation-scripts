@@ -1,51 +1,64 @@
-# QGIS Automation Script – Add and Populate Jurisdiction Fields
+# 🗺️ QGIS Automation Scripts
 
-## 📌 Description
-This repository contains a Python script for **QGIS** that automates the process of adding and populating jurisdiction-related fields into the attribute table of the **active layer**.  
-It is designed for workflows involving **election mapping, governance data, and jurisdictional analysis**.
+Welcome to my collection of **Python scripts for QGIS**.  
+These scripts automate common GIS workflows such as adding jurisdiction fields, joining shapefiles with Excel tables, validating unmatched records, and exporting data to GeoJSON.  
 
-## 🔹 Features
-- Automatically adds the following fields if they don’t exist:
-  - `JurisCat`
-  - `State`
-  - `Juristype`
-  - `JurisTypeName`
-  - `Jurislabel`
-  - `JurisTypeID`
-  - `Country`
-  - `ShapeID`
-- Populates fields with predefined values (easy to edit inside the script).
-- Generates a **ShapeID** by concatenating all values:
-  - Converts everything to **lowercase + alphanumeric only** (no spaces or special characters).
-  - Keeps `Country` in **uppercase**.
-- Works on the **active layer** in QGIS (no need to reload shapefile).
-
-## 🛠 Example Output
-With the following values:
-- JurisCat = Political  
-- State = New Jersey  
-- Juristype = st  
-- JurisTypeName = New Jersey  
-- Jurislabel = Senate District  
-- JurisTypeID = District 21  
-- Country = USA  
-
-The generated `ShapeID` will be:
-political_newjersey_st_newjersey_senatedistrict_district21_USA
-
-
-## 🚀 Usage
-1. Open QGIS and load your shapefile.  
-2. Select the layer you want to edit (make it the **active layer**).  
-3. Open the **Python Console** in QGIS.  
-4. Copy and paste the script `add_juris_fields_flexible.py`.  
-5. Run it – the new fields will be created and automatically populated.  
-
-## 📌 Notes
-- Update the `values = {...}` dictionary in the script for different states, districts, or projects.  
-- The script ensures clean IDs for consistent data management.  
+They are designed for **election data mapping, governance analysis, and telecom/GIS integration**, but can be adapted for many other use cases.
 
 ---
 
-👩‍💻 **Author**: Marsela Rrokaj  
+## 📂 Scripts Included
 
+### 1. `add_juris_fields_flexible.py`
+- Adds standard jurisdiction fields:
+  - `JurisCat, State, Juristype, JurisTypeName, Jurislabel, JurisTypeID, Country`
+- Generates a clean, lowercase `ShapeID` (alphanumeric only).
+- Useful for creating **unique identifiers** across datasets.
+
+---
+
+### 2. `join_shapefile_excel_shapeid.py`
+- Joins shapefile polygons with an Excel table of elected officials.
+- Uses `ShapeID` as the common key field.
+- Supports **1:M joins** (multiple officials linked to the same territory).
+
+---
+
+### 3. `find_unmatched.py`
+- Identifies **unmatched records**:
+  - Officials without polygons (`ShapeID` not found in shapefile).
+  - Polygons without officials assigned.
+- Saves results as separate shapefiles for validation.
+
+---
+
+### 4. `export_geojson.py`
+- Exports the active QGIS layer to **GeoJSON format**.
+- Useful for **web applications, dashboards, or data sharing**.
+
+---
+
+## 🛠 Example Workflow
+
+1. Add and populate jurisdiction fields → `add_juris_fields_flexible.py`  
+2. Join shapefile with Excel data → `join_shapefile_excel_shapeid.py`  
+3. Validate integrity (find missing matches) → `find_unmatched.py`  
+4. Export processed layer to GeoJSON → `export_geojson.py`  
+
+---
+
+## 📌 Requirements
+- **QGIS 3.x** or higher installed.  
+- Python environment bundled with QGIS.  
+- Excel files must include a `ShapeID` column.  
+
+---
+
+## 👩‍💻 Author
+**Marsela Rrokaj**  
+🌍 GIS & Remote Sensing Specialist | Data Analyst  
+📫 [LinkedIn](https://linkedin.com/in/marselarrokaj) | ✉️ marselarrokaj02@gmail.com  
+
+---
+
+✨ *Always learning, always mapping the world better.*

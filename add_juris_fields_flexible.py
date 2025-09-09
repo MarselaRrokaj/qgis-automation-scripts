@@ -13,9 +13,9 @@ import re
 layer = iface.activeLayer()
 
 if not layer:
-    print("No active layer selected!")
+    print("❌ No active layer selected!")
 else:
-    print(f"Layer '{layer.name()}' loaded successfully.")
+    print(f"✅ Layer '{layer.name()}' loaded successfully.")
 
     # Start editing
     layer.startEditing()
@@ -42,7 +42,7 @@ else:
 
     layer.updateFields()
 
-    # 🔹 Values to populate (edit here for different projects)
+    # Values to populate
     values = {
         "JurisCat": "Political",
         "State": "New Jersey",
@@ -50,10 +50,10 @@ else:
         "JurisTypeName": "New Jersey",
         "Jurislabel": "Senate District",
         "JurisTypeID": "District 21",
-        "Country": "USA"   # always uppercase
+        "Country": "USA"
     }
 
-    # Function to clean text (lowercase + remove non-alphanumeric)
+    # Function to clean text
     def clean_text(text):
         text = text.lower().replace(" ", "")
         return re.sub(r'[^a-z0-9]', '', text)
@@ -63,7 +63,6 @@ else:
         for field_name, field_value in values.items():
             feature[field_name] = field_value
 
-        # Build ShapeID (Country stays uppercase)
         shape_id = "_".join([
             clean_text(values["JurisCat"]),
             clean_text(values["State"]),
@@ -71,9 +70,8 @@ else:
             clean_text(values["JurisTypeName"]),
             clean_text(values["Jurislabel"]),
             clean_text(values["JurisTypeID"]),
-            values["Country"]  # stays uppercase
+            values["Country"]
         ])
-
         feature["ShapeID"] = shape_id
         layer.updateFeature(feature)
 
